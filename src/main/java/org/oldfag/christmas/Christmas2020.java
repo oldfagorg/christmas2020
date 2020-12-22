@@ -1,9 +1,18 @@
 package org.oldfag.christmas;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.ListenerPriority;
+import com.comphenix.protocol.events.PacketAdapter;
+import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.wrappers.nbt.NbtBase;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
+import org.oldfag.christmas.packet.WrapperPlayServerMapChunk;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
 /**
  * This plugin is designed for oldfag.org and will be used on Christmas 2020.
@@ -25,10 +34,14 @@ public final class Christmas2020 extends JavaPlugin {
 	public void onEnable() {
 		//register listener class
 		Bukkit.getServer().getPluginManager().registerEvents(new Listeners(), this);
-	}
-	
-	@Override
-	public void onDisable() {
-		// Plugin shutdown logic
+		
+		//send ice plains biome with every chunk
+		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this, ListenerPriority.LOWEST, PacketType.Play.Server.MAP_CHUNK, PacketType.Play.Server.MAP_CHUNK_BULK) {
+			@Override
+			public void onPacketSending(PacketEvent event) {
+				WrapperPlayServerMapChunk wrapper = new WrapperPlayServerMapChunk(event.getPacket());
+				
+			}
+		});
 	}
 }
