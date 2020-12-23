@@ -7,7 +7,9 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.nbt.NbtBase;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.oldfag.christmas.packet.WrapperPlayServerMapChunk;
 
@@ -20,8 +22,8 @@ import java.util.Arrays;
  * Everytime the player loads a chunk there will be a 0.01% chance that a custom mob will spawn.
  * This mob will be a husk with a lot of health and will drop a uniquely named book
  *
- * TODO: make world always snowing
  * @author John200410
+ * @author charlie353535 23/12/2020
  */
 public final class Christmas2020 extends JavaPlugin {
 	
@@ -47,5 +49,13 @@ public final class Christmas2020 extends JavaPlugin {
 				}
 			}
 		});
+
+		// set weather to rain in every overworld world, and set duration to (basically) infinity.
+		for (World w : getServer().getWorlds()) {
+			if (w.getEnvironment() == World.Environment.NORMAL) {
+				w.setStorm(true);
+				w.setWeatherDuration(2147483647); // 2147483647 ticks = 3.4 years so we are probably OK
+			}
+		}
 	}
 }
