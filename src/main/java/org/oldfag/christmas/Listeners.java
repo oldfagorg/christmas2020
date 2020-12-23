@@ -1,13 +1,17 @@
 package org.oldfag.christmas;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
@@ -79,5 +83,12 @@ public class Listeners implements Listener {
 			entity.getEquipment().setItemInOffHandDropChance(1f); //makes book always drop
 		}
 	}
-	
+
+	// let hilarity ensue
+	@EventHandler
+	public void onChatSent(AsyncPlayerChatEvent e) {
+		//e.setMessage(Utils.christmasifyString(e.getMessage()));
+		Player p = e.getPlayer();
+		p.setDisplayName(Utils.christmasifyString(p.getDisplayName()) + ChatColor.RESET);
+	}
 }

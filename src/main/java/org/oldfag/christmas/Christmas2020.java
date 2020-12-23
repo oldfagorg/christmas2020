@@ -5,12 +5,16 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.wrappers.WrappedChatComponent;
 import com.comphenix.protocol.wrappers.nbt.NbtBase;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
+import org.oldfag.christmas.packet.WrapperPlayServerChat;
 import org.oldfag.christmas.packet.WrapperPlayServerMapChunk;
 
 import java.text.SimpleDateFormat;
@@ -38,7 +42,7 @@ public final class Christmas2020 extends JavaPlugin {
 		Bukkit.getServer().getPluginManager().registerEvents(new Listeners(), this);
 		
 		//send ice plains biome with every chunk
-		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this, ListenerPriority.LOWEST, PacketType.Play.Server.MAP_CHUNK, PacketType.Play.Server.MAP_CHUNK_BULK) {
+		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this, ListenerPriority.HIGH, PacketType.Play.Server.MAP_CHUNK, PacketType.Play.Server.MAP_CHUNK_BULK) {
 			@Override
 			public void onPacketSending(PacketEvent event) {
 				WrapperPlayServerMapChunk wrapper = new WrapperPlayServerMapChunk(event.getPacket());
