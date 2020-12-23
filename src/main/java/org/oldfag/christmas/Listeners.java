@@ -4,23 +4,18 @@ import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.time.Instant;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.Random;
 
@@ -85,8 +80,8 @@ public class Listeners implements Listener {
 	}
 
 	@EventHandler
-	public void onChatSent(AsyncPlayerChatEvent e) {
-		Player p = e.getPlayer();
-		p.setDisplayName(ChatColor.RESET +""+ Utils.colorFor(p.getUniqueId()) + p.getDisplayName() + ChatColor.RESET);
+	private void onChatSent(AsyncPlayerChatEvent e) {
+		final Player p = e.getPlayer();
+		p.setDisplayName(Utils.colorFor(p.getUniqueId()) + p.getDisplayName() + ChatColor.RESET); //christmas color name
 	}
 }

@@ -5,20 +5,12 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.wrappers.WrappedChatComponent;
-import com.comphenix.protocol.wrappers.nbt.NbtBase;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
-import org.oldfag.christmas.packet.WrapperPlayServerChat;
 import org.oldfag.christmas.packet.WrapperPlayServerMapChunk;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 
 /**
  * This plugin is designed for oldfag.org and will be used on Christmas 2020.
@@ -45,20 +37,20 @@ public final class Christmas2020 extends JavaPlugin {
 		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this, ListenerPriority.HIGH, PacketType.Play.Server.MAP_CHUNK, PacketType.Play.Server.MAP_CHUNK_BULK) {
 			@Override
 			public void onPacketSending(PacketEvent event) {
-				WrapperPlayServerMapChunk wrapper = new WrapperPlayServerMapChunk(event.getPacket());
+				final WrapperPlayServerMapChunk wrapper = new WrapperPlayServerMapChunk(event.getPacket());
 
-				int lengthBegin = wrapper.getData().length - 256;
-				for (int i=0;i<256;i++) {
-					wrapper.getData()[lengthBegin+i] = 12;
+				final int lengthBegin = wrapper.getData().length - 256;
+				for (int i = 0; i < 256; i++) {
+					wrapper.getData()[lengthBegin+i] = 12; //12 = ice plains (https://minecraft.gamepedia.com/Biome/IDs_before_1.13)
 				}
 			}
 		});
 
-		// set weather to rain in every overworld world, and set duration to (basically) infinity.
+		//set weather to rain in every overworld world, and set duration to (basically) infinity.
 		for (World w : getServer().getWorlds()) {
-			if (w.getEnvironment() == World.Environment.NORMAL) {
+			if (w.getEnvironment().equals(World.Environment.NORMAL)) {
 				w.setStorm(true);
-				w.setWeatherDuration(2147483647); // 2147483647 ticks = 3.4 years so we are probably OK
+				w.setWeatherDuration(Integer.MAX_VALUE); //2147483647 ticks = 3.4 years so we are probably OK
 			}
 		}
 	}
