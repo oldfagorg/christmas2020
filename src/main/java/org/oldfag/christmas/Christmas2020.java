@@ -40,7 +40,11 @@ public final class Christmas2020 extends JavaPlugin {
 			@Override
 			public void onPacketSending(PacketEvent event) {
 				WrapperPlayServerMapChunk wrapper = new WrapperPlayServerMapChunk(event.getPacket());
-				
+
+				int lengthBegin = wrapper.getData().length - 256;
+				for (int i=0;i<256;i++) {
+					wrapper.getData()[lengthBegin+i] = 12;
+				}
 			}
 		});
 	}
