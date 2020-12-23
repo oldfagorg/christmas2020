@@ -84,11 +84,9 @@ public class Listeners implements Listener {
 		}
 	}
 
-	// let hilarity ensue
 	@EventHandler
 	public void onChatSent(AsyncPlayerChatEvent e) {
-		//e.setMessage(Utils.christmasifyString(e.getMessage()));
 		Player p = e.getPlayer();
-		p.setDisplayName(Utils.christmasifyString(p.getDisplayName()) + ChatColor.RESET);
+		p.setDisplayName(ChatColor.RESET +""+ Utils.colorFor(p.getUniqueId()) + p.getDisplayName() + ChatColor.RESET);
 	}
 }
