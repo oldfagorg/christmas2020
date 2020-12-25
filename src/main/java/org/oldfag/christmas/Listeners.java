@@ -26,8 +26,8 @@ public class Listeners implements Listener {
 		//random object
 		final Random rand = new Random();
 		
-		//one in ten thousand chance (0.01%) that this will happen
-		final boolean spawn = rand.nextInt(10000) == 69; //we use 69 here because it is funny number
+		//one in ten thousand chance (0.005%) that this will happen
+		final boolean spawn = rand.nextInt(20000) == 69; //we use 69 here because it is funny number
 		
 		if(spawn && event.getWorld().getEnvironment().equals(World.Environment.NORMAL)) {
 			
