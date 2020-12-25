@@ -1,9 +1,6 @@
 package org.oldfag.christmas;
 
-import org.bukkit.ChatColor;
-import org.bukkit.Effect;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -32,7 +29,7 @@ public class Listeners implements Listener {
 		//one in ten thousand chance (0.01%) that this will happen
 		final boolean spawn = rand.nextInt(10000) == 69; //we use 69 here because it is funny number
 		
-		if(spawn) {
+		if(spawn && event.getWorld().getEnvironment().equals(World.Environment.NORMAL)) {
 			
 			//this is location to spawn the entity
 			final Location spawnLoc = event.getWorld().getHighestBlockAt(event.getChunk().getBlock(8, 255 /* not going to spawn it at build height obviously */, 0).getLocation()).getLocation();
